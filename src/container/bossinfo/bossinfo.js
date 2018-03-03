@@ -47,7 +47,7 @@ class BossInfo extends React.Component {
     return (
     <div>
       {redirect&&redirect!==path? <Redirect to={this.props.turnTo} /> :null}
-      <NavBar mode="light">Boss个人信息</NavBar>
+      <NavBar mode="dark">Boss个人信息</NavBar>
       <WingBlank>
       <AvatarSelector selectAvatar={this.selectAvatar}/> 
       <InputItem onChange={e=>this.handleChange('title',e)}>招聘职位</InputItem>

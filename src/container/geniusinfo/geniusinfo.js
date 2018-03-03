@@ -12,7 +12,7 @@ import { update } from '../../redux/user.redux'
   { update }
 )
 
-class GeniousInfo extends React.Component {
+class geniusInfo extends React.Component {
   static propTypes = {
     update:PropTypes.func.isRequired,
     turnTo:PropTypes.string.isRequired
@@ -45,7 +45,7 @@ class GeniousInfo extends React.Component {
     return (
     <div>
       {redirect&&redirect!==path? <Redirect to={this.props.turnTo} /> :null}
-      <NavBar mode="light">牛人个人信息</NavBar>
+      <NavBar mode="dark">牛人个人信息</NavBar>
       <WingBlank>
       <AvatarSelector selectAvatar={this.selectAvatar}/> 
       <InputItem onChange={e=>this.handleChange('title',e)}>求职岗位</InputItem>
@@ -58,4 +58,4 @@ class GeniousInfo extends React.Component {
   }
 }
 
-export default GeniousInfo
+export default geniusInfo

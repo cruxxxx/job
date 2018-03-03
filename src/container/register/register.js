@@ -13,7 +13,7 @@ const type = [
   },
   {
     label: '牛人',
-    value: 'niuren',
+    value: 'genius',
   },
 ];
 
