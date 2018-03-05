@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavBar, Icon } from 'antd-mobile'
+import { NavBar} from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
+import {getMsgList,recvMsg} from '../../redux/chat.redux'
 import NavlinkBar from '../navlink/navlink'
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
@@ -13,10 +14,18 @@ function Msg(){
 }
 
 @connect(
-  state=>state.user
+  state=>state,
+  { getMsgList,recvMsg }
 )
 
 class Dashboard extends React.Component{
+
+  componentDidMount(){
+    if(!this.props.chat.chatmsg.length){
+      this.props.getMsgList()
+      this.props.recvMsg() 
+    }
+  }
   render(){
     const {pathname} = this.props.location
     const navList = [
@@ -26,7 +35,7 @@ class Dashboard extends React.Component{
         icon:'boss',
         title:'牛人列表',
         component:Boss,
-        hide:this.props.type === 'genius'
+        hide:this.props.user.type === 'genius'
       },
       {
         path:'/genius',
@@ -34,7 +43,7 @@ class Dashboard extends React.Component{
         icon:'job',
         title:'Boss列表',
         component:Genius,
-        hide:this.props.type === 'boss'
+        hide:this.props.user.type === 'boss'
       },
       {
         path:'/msg',
