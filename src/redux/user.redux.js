@@ -4,6 +4,7 @@ import {getTurnPath} from '../utill'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
+const LOGOUT = 'LOGOUT'
 
 
 const initState ={
@@ -21,6 +22,8 @@ export function user(state=initState,action){
       return {...state, turnTo:'',msg:action.msg}
     case LOAD_DATA:
       return {...state, ...action.data}
+    case LOGOUT:
+      return {...initState, turnTo:'/login'}
     default:
       return state
   }  
@@ -37,6 +40,10 @@ function authSuccess(obj){
 
 export function loadData(data){
   return { type:LOAD_DATA, data}
+}
+
+export function logoutSubmit(){
+  return { type:LOGOUT}
 }
 
 export function update(data){

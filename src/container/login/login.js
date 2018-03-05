@@ -5,49 +5,37 @@ import PropTypes from 'prop-types'
 import Logo from '../../component/logo/logo'
 import { connect } from 'react-redux'
 import { login } from '../../redux/user.redux'
+import Form from '../../component/form/form'
 
 @connect(
   state=>state.user,
   { login }
 )
+@Form
 
 class Login extends React.Component {
   static propTypes = {
     login:PropTypes.func.isRequired
   }
 
-  constructor(props){
-    super(props)
-    this.state={
-      user:'',
-      pwd:''
-    }
-  }
-
   register=()=>{
     this.props.history.push('./register')
   }
 
-  handleChange = (key,val)=>{
-    this.setState({
-      [key]:val
-    })
-  }
-
  handleLogin=()=>{
-   this.props.login(this.state)
+   this.props.login(this.props.state)
  }
 
   render(){ 
     return (
     <div>
-    {this.props.turnTo ? <Redirect to={this.props.turnTo} /> :null}
+    {(this.props.turnTo&&this.props.turnTo!=='/login') ? <Redirect to={this.props.turnTo} /> :null}
       <Logo />
       <WingBlank>
         <List>
         {this.props.msg?<p>{this.props.msg}</p>:null}
-          <InputItem onChange={e=>this.handleChange('user',e)}>用户名</InputItem>
-          <InputItem type='password' onChange={e=>this.handleChange('pwd',e)}>密码</InputItem>
+          <InputItem onChange={e=>this.props.handleChange('user',e)}>用户名</InputItem>
+          <InputItem type='password' onChange={e=>this.props.handleChange('pwd',e)}>密码</InputItem>
         </List>
         <WhiteSpace size="xl"/>
         <Button type="primary" onClick={this.handleLogin}>登录</Button>

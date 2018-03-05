@@ -32,7 +32,7 @@ class AvatarSelector extends React.Component {
 
     const avatar = this.state.icon?(<div>
                                       <span>已选择头像</span>
-                                      <img style={{width:20}} src={this.state.icon} />
+                                      <img style={{width:20}} src={this.state.icon} alt=""/>
                                       </div>):(<div>请选择头像</div>)
     return (
     <div>
