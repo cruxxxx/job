@@ -29,7 +29,6 @@ Router.get('/getmsglist',function(req,res){
      })
      Chat.find({'$or':[{from:user},{to:user}]},function(err,doc){
       if(!err){
-        console.log(doc)
         return res.json({code:0,msgs:doc,users:users})
       }
     })
@@ -45,6 +44,17 @@ Router.post('/login',function(req,res){
     res.cookie('userid',doc._id)
     return res.json({code:0,data:doc})
   })
+})
+
+Router.post('/readmsg',function(req,res){
+  const userid = req.cookies.userid  
+  const { from } = req.body
+  Chat.update({from,to:userid},{'$set':{read:true}},{'multi':true},function(err,doc){
+    if(!err){
+      return res.json({code:0,num:doc.nModified})
+    }
+    return res.json({code:1,msg:'修改失败'})    
+  }) 
 })
 
 Router.post('/update',function(req,res){
