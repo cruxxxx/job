@@ -9,6 +9,8 @@ const _filter = {'pwd':0,'_v':0}
 
 Router.get('/list',function(req,res){
   //User.remove({},function(e,c){})
+ // Chat.remove({},function(e,c){})
+  
   const {type} = req.query
   User.find({type},function(err,doc){
     if(err){
@@ -19,7 +21,7 @@ Router.get('/list',function(req,res){
 })
 
 Router.get('/getmsglist',function(req,res){
-  const user = req.cookies.user
+  const user = req.cookies.userid
   User.find({},function(e,userdoc){
      let users = {}
      userdoc.forEach(v=>{
@@ -27,6 +29,7 @@ Router.get('/getmsglist',function(req,res){
      })
      Chat.find({'$or':[{from:user},{to:user}]},function(err,doc){
       if(!err){
+        console.log(doc)
         return res.json({code:0,msgs:doc,users:users})
       }
     })

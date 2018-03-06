@@ -1,12 +1,9 @@
 import React from 'react'
-import io from 'socket.io-client'
 import { List, InputItem ,NavBar,Icon,Grid} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {getMsgList,sendMsg,recvMsg} from '../../redux/chat.redux'
 import '../../index.css'
 import { getChatId } from '../../utill';
-
-const socket = io('ws://localhost:9093')
 
 @connect(
   state=>state,
@@ -26,7 +23,6 @@ class Chat extends React.Component{
       this.props.getMsgList()
       this.props.recvMsg() 
     }
-
   }
 
   fix(){
@@ -49,14 +45,14 @@ class Chat extends React.Component{
   render(){
     const emoji = '😀 😁 🤣 😂 😄 😅 😆 😇 😉 😊 🙂 🙃 😋 😌 😍 😘'.split(' ')
     .filter(v=>v).map(v=>({text:v}))
-    const userid = this.props.match.params.user
+    const userid = this.props.match.params.user //聊天对象
     const Item = List.Item
-    const users = this.props.chat.users
+    const users = this.props.chat.users //用户信息
     if(!users[userid]){
       return null
     }
     const chatid = getChatId(userid,this.props.user._id)
-    const chatmsgs = this.props.chat.chatmsg.filter(v=>v.chatid===chatid)
+    const chatmsgs = this.props.chat.chatmsg.filter(v=>v.chatid===chatid) //筛选某个人相对应得聊天内容
     return(
       <div id='chat-page'>
         <NavBar mode='dark' 
@@ -85,7 +81,8 @@ class Chat extends React.Component{
           value={this.state.text}
           onChange={(v)=>{this.setState({text:v})}}
           extra={<div>
-            <span 
+            <span
+            role="img" aria-label="mua"
             style={{"marginRight":15}} 
             onClick={()=>{this.setState({showEmoji:true})
                           this.fix()}}>😘</span>

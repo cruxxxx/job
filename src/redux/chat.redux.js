@@ -18,8 +18,8 @@ export function chat(state=initState,action){
     case MSG_LIST:
     return {...state, users:action.users,chatmsg:action.msgs,unread:action.msgs.filter(v=>!v.read&&v.to===action.userid).length}
     case MSG_RECV:
-    const un = action.data.to ===action.userid?1:0  
-    return {...state,chatmsg:[...state.chatmsg,action.data],unread:un+1}
+    const un = action.data.to === action.userid?1:0  
+    return {...state,chatmsg:[...state.chatmsg,action.data],unread:state.unread+un}
     //case MSR_READ:
     default:
       return state
@@ -49,7 +49,7 @@ function msgList(msgs,users,usersid){
   return {type:MSG_LIST,msgs,users,usersid}
 }
 
-export function getMsgList(type){
+export function getMsgList(){
   return (dispatch,getState)=>{
     axios.get('/user/getmsglist')
       .then(res=>{
