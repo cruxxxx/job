@@ -30,10 +30,8 @@ class Msg extends React.Component{
     const chatList = Object.values(msgGroup).sort((a,b)=>{
       const a_last = this.getLast(a).create_time
       const b_last = this.getLast(b).create_time 
-      console.log(a_last,b_last)
       return b_last - a_last     
     })
-    console.log(chatList)
     return(
       <div>
         <List>

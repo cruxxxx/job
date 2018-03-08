@@ -9,7 +9,7 @@ const _filter = {'pwd':0,'_v':0}
 
 Router.get('/list',function(req,res){
   //User.remove({},function(e,c){})
- // Chat.remove({},function(e,c){})
+ //Chat.remove({},function(e,c){})
   
   const {type} = req.query
   User.find({type},function(err,doc){

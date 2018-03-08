@@ -52,7 +52,6 @@ class Chat extends React.Component{
     const userid = this.props.match.params.user //聊天对象
     const Item = List.Item
     const users = this.props.chat.users //用户信息
-    console.log(users)
     if(!users[userid]){
       return null
     }

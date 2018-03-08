@@ -18,11 +18,11 @@ export function chat(state=initState,action){
     case MSG_LIST:
     return {...state, users:action.users,chatmsg:action.msgs,unread:action.msgs.filter(v=>!v.read&&v.to===action.userid).length}
     case MSG_RECV:
-    const un = action.data.to === action.userid?1:0  
+    const un = action.data.to === action.userid?1:0
     return {...state,chatmsg:[...state.chatmsg,action.data],unread:state.unread+un}
     case MSG_READ:
-    const {from ,num}=action.payload
-    return {...state, chatmsg:state.chatmsg.map(v=>({ ...v,read :from===v.from?true:v.read })),unread:state.unread-num}
+    const {from,num}=action.payload
+    return {...state, chatmsg:state.chatmsg.map(v=>({ ...v,read:from===v.from?true:v.read })),unread:state.unread-num}
     default:
       return state 
   }  
