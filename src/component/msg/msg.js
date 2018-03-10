@@ -3,6 +3,7 @@ import { List ,Badge} from 'antd-mobile'
 import PropTypes from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
+import QueueAnim from 'rc-queue-anim'
 
 
 @withRouter 
@@ -35,6 +36,7 @@ class Msg extends React.Component{
     return(
       <div>
         <List>
+        <QueueAnim delay={300} className="queue-simple">
            {chatList.map(v=>{
              const lastItme = this.getLast(v)
              const targetId = v[0].from === userid?v[0].to:v[0].from
@@ -56,6 +58,7 @@ class Msg extends React.Component{
                </Item>
              )
            })}
+           </QueueAnim>
         </List>
       </div>
     )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { List, InputItem ,NavBar,Icon,Grid} from 'antd-mobile'
 import {connect} from 'react-redux'
+import QueueAnim from 'rc-queue-anim'
 import {getMsgList,sendMsg,recvMsg,readMsg} from '../../redux/chat.redux'
 import '../../index.css'
 import { getChatId } from '../../utill';
@@ -64,6 +65,7 @@ class Chat extends React.Component{
         onLeftClick={() => this.props.history.goBack()}>
         {users[userid].name}
         </NavBar>
+        <QueueAnim delay={300} className="queue-simple">
         {chatmsgs.map(v=>{
           const avatar = require(`../img/${users[v.from].avatar}.png`)
           return v.from === userid?(
@@ -78,6 +80,7 @@ class Chat extends React.Component{
               {v.content}</Item>
             </List> )
         })}
+        </QueueAnim>
       <div className='stick-footer'>
         <List>
           <InputItem 
