@@ -47,17 +47,15 @@ export function logoutSubmit(){
 }
 
 export function update(data){
-  return dispatch=>{
-    axios.post('/user/update',data)
-      .then(res=>{
-        if(res.status===200&&res.data.code===0){
-          dispatch(authSuccess(res.data.data))
-        }else{
-          dispatch(errorMSG(res.data.msg))
-        }
-      })
+  return async dispatch=>{
+    const res = await axios.post('/user/update',data)
+      if(res.status===200&&res.data.code===0){
+            dispatch(authSuccess(res.data.data))
+          }else{
+            dispatch(errorMSG(res.data.msg))
+          }
+    }
   }
-}
 
 export function register({user,pwd,repwd,type}){  
   if(!user||!pwd){
@@ -66,16 +64,13 @@ export function register({user,pwd,repwd,type}){
   if(pwd!==repwd){
     return errorMSG('输入密码不一致')
   }
-  return dispatch=>{
-    axios.post('/user/register',{user,pwd,type})
-      .then(res=>{
+  return async dispatch=>{
+    const res = await axios.post('/user/register',{user,pwd,type})
         if(res.status===200&&res.data.code===0){
           dispatch(authSuccess({user,pwd,type}))
         }else{
           dispatch(errorMSG(res.data.msg))
         }
-      }
-      )
   }
 }
 
@@ -83,15 +78,13 @@ export function login({user,pwd}){
   if(!user||!pwd){
     return errorMSG('请输入用户名密码')
   }
-  return dispatch=>{
-    axios.post('/user/login',{user,pwd})
-      .then(res=>{
+  return async dispatch=>{
+    const res = await axios.post('/user/login',{user,pwd})
+      
         if(res.status===200&&res.data.code===0){
           dispatch(authSuccess(res.data.data))
         }else{
           dispatch(errorMSG(res.data.msg))
         }
-      }
-      )
   }
 }

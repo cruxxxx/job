@@ -28,17 +28,13 @@ function List(data){
 }
 
 export function list(type){
-  return dispatch=>{
-    axios.get(`/user/list?type=${type}`)
-      .then(res=>{
+  return async dispatch=>{
+   const res = await axios.get(`/user/list?type=${type}`)
         if(res.data.code===0){
           dispatch(List(res.data.data))
         }else{
           dispatch(errorMSG(res.data.msg))
         }
-      }
-
-      )
   }
 }
 
